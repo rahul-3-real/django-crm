@@ -1,1 +1,1 @@
-1. Continue from Class Based Views
+1. Continue from Auth Permission

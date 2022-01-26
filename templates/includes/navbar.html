@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
   <div class="container">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="{% url 'index' %}">
       <b>Django CRM</b>
     </a>
     <button
@@ -18,12 +18,15 @@
       <div class="me-auto"></div>
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Home</a>
+          <a class="nav-link active" href="{% url 'index' %}">Home</a>
         </li>
+        {% if request.user.is_organizer %}
         <li class="nav-item">
-          <a class="nav-link active" href="{% url 'leads:lead_list' %}">
-            Leads
-          </a>
+          <a class="nav-link active" href="{% url 'agent_list' %}">Agents</a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'lead_list' %}">Leads</a>
         </li>
         {% if request.user.is_authenticated %}
         <li class="nav-item active">
@@ -34,7 +37,7 @@
         <li class="nav-item">
           <a
             class="nav-link active btn btn-dark text-light ms-2"
-            href="{% url 'accounts:logout' %}"
+            href="{% url 'logout' %}"
           >
             Logout
           </a>
@@ -43,7 +46,7 @@
         <li class="nav-item">
           <a
             class="nav-link active btn btn-dark text-light ms-2"
-            href="{% url 'accounts:register' %}"
+            href="{% url 'register' %}"
           >
             Register
           </a>
@@ -51,7 +54,7 @@
         <li class="nav-item">
           <a
             class="nav-link active btn btn-dark text-light ms-2"
-            href="{% url 'accounts:login' %}"
+            href="{% url 'login' %}"
           >
             Login
           </a>

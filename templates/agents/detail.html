@@ -1,0 +1,23 @@
+{% extends '../base.html' %}
+
+<!-- Load Static -->
+{% load static %}
+
+<!-- Content -->
+{% block content %}
+
+<div class="row gx-4 gy-4">
+  <div class="col-lg-12">
+    <div class="card shadow border-0">
+      <div class="card-header px-4 py-3">
+        <h5>Detail</h5>
+      </div>
+      <div class="card-body p-4">
+        <h4 class="display-4">{{ agent.user.username }}</h4>
+        <h5>{{ agent.user.email }}</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

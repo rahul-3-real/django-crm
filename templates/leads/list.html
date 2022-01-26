@@ -9,10 +9,18 @@
 <div class="row gx-4 gy-4">
   <div class="col-lg-12">
     <div class="card shadow border-0">
-      <div class="card-header px-4 py-3">
+      <div
+        class="card-header px-4 py-3 d-flex justify-content-between align-items-center"
+      >
         <h5>Leads</h5>
+        {% if request.user.is_organizer %}
+        <a href="{% url 'lead_create' %}" class="btn btn-primary">
+          Create Lead
+        </a>
+        {% endif %}
       </div>
       <div class="card-body p-4">
+        <h4>Assigned Leads</h4>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead class="table-dark">
@@ -20,7 +28,6 @@
                 <th>Id.</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Email</th>
                 <th>Agent</th>
                 <th>Action</th>
               </tr>
@@ -31,23 +38,26 @@
                 <td>{{ lead.id }}</td>
                 <td>{{ lead.first_name }}</td>
                 <td>{{ lead.last_name }}</td>
-                <td>{{ lead.email }}</td>
-                <td>{{ lead.agent.user.username }}</td>
+                <td>
+                  <span class="badge bg-primary">
+                    {{ lead.agent.user.username }}
+                  </span>
+                </td>
                 <td>
                   <a
-                    href="{% url 'leads:lead_detail' lead.id %}"
+                    href="{% url 'lead_detail' lead.id %}"
                     class="btn btn-sm btn-success"
                   >
                     <i class="fal fa-eye"></i>
                   </a>
                   <a
-                    href="{% url 'leads:lead_update' lead.id %}"
+                    href="{% url 'lead_update' lead.id %}"
                     class="btn btn-sm btn-warning"
                   >
                     <i class="fal fa-pencil"></i>
                   </a>
                   <a
-                    href="{% url 'leads:lead_delete' lead.id %}"
+                    href="{% url 'lead_delete' lead.id %}"
                     class="btn btn-sm btn-danger"
                   >
                     <i class="fal fa-trash"></i>
@@ -59,6 +69,59 @@
                 <td colspan="6" class="text-center">No Data found</td>
               </tr>
               {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <hr class="my-5" />
+        <h4>Unassigned Leads</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>Id.</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Agent</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if unassigned_leads.exists %}
+              <!-- Loop -->
+              {% for lead in unassigned_leads %}
+              <tr>
+                <td>{{ lead.id }}</td>
+                <td>{{ lead.first_name }}</td>
+                <td>{{ lead.last_name }}</td>
+                <td><span class="badge bg-secondary">Unassigned</span></td>
+                <td>
+                  <a
+                    href="{% url 'lead_detail' lead.id %}"
+                    class="btn btn-sm btn-success"
+                  >
+                    <i class="fal fa-eye"></i>
+                  </a>
+                  <a
+                    href="{% url 'lead_update' lead.id %}"
+                    class="btn btn-sm btn-warning"
+                  >
+                    <i class="fal fa-pencil"></i>
+                  </a>
+                  <a
+                    href="{% url 'lead_delete' lead.id %}"
+                    class="btn btn-sm btn-danger"
+                  >
+                    <i class="fal fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center">No Data found</td>
+              </tr>
+              {% endfor %}
+              <!-- Loop -->
+              {% endif %}
             </tbody>
           </table>
         </div>

@@ -93,7 +93,15 @@
                 <td>{{ lead.id }}</td>
                 <td>{{ lead.first_name }}</td>
                 <td>{{ lead.last_name }}</td>
-                <td><span class="badge bg-secondary">Unassigned</span></td>
+                <td>
+                  <span class="badge bg-secondary">Unassigned</span>
+                  <a
+                    href="{% url 'assign_agent' lead.id %}"
+                    class="btn btn-sm btn-secondary"
+                  >
+                    Assign Agent
+                  </a>
+                </td>
                 <td>
                   <a
                     href="{% url 'lead_detail' lead.id %}"
